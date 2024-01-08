@@ -87,10 +87,7 @@ namespace CollegeHUB
                             sendAdmin();
                             break;
                         case 2:
-                            sendLecturer();
-                            break;
-                        case 3:
-                            sendStudent();
+                            sendWorker();
                             break;
                         default:
                             throw new Exception("Error?");
@@ -104,13 +101,9 @@ namespace CollegeHUB
 
         }
 
-        private async void sendStudent()
+        private async void sendWorker()
         {
-            await Shell.Current.Navigation.PushAsync(new Student());
-        }
-        private async void sendLecturer()
-        {
-            await Shell.Current.Navigation.PushAsync(new Lecturer());
+            await Shell.Current.Navigation.PushAsync(new Worker());
         }
         private async void sendAdmin()
         {

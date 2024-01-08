@@ -33,7 +33,7 @@ namespace CollegeHUB.Back.DBConfig
 
         public void openConnection()
         {
-            string cs = "server=127.0.0.1;uid=temp;password=temp;database=ais";
+            string cs = "server=127.0.0.1;uid=temp;password=temp;database=chub";
             try
             {
                 conn = new MySqlConnection();
@@ -49,7 +49,7 @@ namespace CollegeHUB.Back.DBConfig
 
         public void openConnectionExists(string u_, string p_)
         {
-            string cs = string.Format("server=127.0.0.1;uid='{0}';password='{1}';database=ais", u_, p_);
+            string cs = string.Format("server=127.0.0.1;uid='{0}';password='{1}';database=chub", u_, p_);
             try
             {
                 conn = new MySqlConnection();
@@ -248,7 +248,7 @@ namespace CollegeHUB.Back.DBConfig
             Random random = new Random();
             int randomNumber = random.Next(1000000);
 
-            generatedUser = "s" + randomNumber.ToString();
+            generatedUser = "chub" + randomNumber.ToString();
             if (!checkIfRelative(string.Format("SELECT DBuser from chub.users WHERE DBuser = '{0}'", generatedUser), u_, p_))
             {
 
