@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CollegeHUB.Administrator"
+             Title="">
+    <ScrollView>
+        <VerticalStackLayout>
+            <FlexLayout FlowDirection="LeftToRight">
+                <Label 
+                        Text="Sveiki prisijungę."
+                        FontSize="Large"
+                        Margin="10"
+                        FlexLayout.Grow="1"
+                        HeightRequest="50"
+                />
+                <Label  x:Name="loggedIn"
+                        HorizontalOptions="End"
+                        Margin="10"
+                        FontSize="Large"
+                        HeightRequest="50"
+                />
+                <Button x:Name="logOut"
+                        WidthRequest="200"
+                        Text="Atsijungti"
+                        FontSize="Medium"
+                        HeightRequest="50"
+                        Margin="10"
+                        BackgroundColor="SlateGray"
+                        TextColor="White"
+                        Clicked="onLogoutClicked"
+                        />
+            </FlexLayout>
+            <!--MYGTUKU INTERFEISAS-->
+
+            <HorizontalStackLayout>
+            <Grid 
+                  x:Name="interfaceButtons"
+                  ColumnDefinitions="230, 500"
+                  RowDefinitions="47, 47, 47, 47, 47, 47, 47, 47, 47, 47, 47"
+                  Padding="20"
+                  Margin="10"
+                  RowSpacing="20"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center">
+             
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                    x:Name="AddWorker"
+                    Text="Pridėti darbuotoją"
+                    SemanticProperties.Description="Pridėti naują darbuotoją į IS"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis sukurti naują darbuotoją"
+                        Clicked="OnAWClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                    x:Name="RemoveWorker"
+                    Text="Ištrinti darbuotoją"
+                    SemanticProperties.Description="Ištrinti darbuotoją iš IS"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis istrinti esama darbuotoja"
+                        Clicked="OnRWClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                    x:Name="AddInhabitant"
+                    Text="Pridėti gyventoją"
+                    SemanticProperties.Description="Prideti gyventoją į IS"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis sukurti nauja gyventoją"
+                        Clicked="OnAIClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="3"
+                        Grid.Column="0"
+                    x:Name="RemoveInhabitant"
+                    Text="Ištrinti dėstytoją"
+                    SemanticProperties.Description="Istrinti gyventoją iš IS"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis istrinti esamą gyventoją"
+                        Clicked="OnRIClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="4"
+                        Grid.Column="0"
+                    x:Name="CreateBuilding"
+                    Text="Sukurti bendrabutį"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis sukurti naują tinklo pastatą"
+                        Clicked="OnCBClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="5"
+                        Grid.Column="0"
+                    x:Name="RemoveBuilding"
+                    Text="Panaikinti bendrabutį"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis pasalinti tinklo pastatą"
+                        Clicked="OnRBClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="6" 
+                        Grid.Column="0"
+                    x:Name="CreateRoom"
+                    Text="Sukurti kambarį"
+                    SemanticProperties.Hint="Paspaudus mygtuka atsiras meniu, leidziantis sukurti naują kambarį pastate"
+                        Clicked="OnRGClicked"
+                    IsVisible="true"
+                    />
+                <Button Grid.Row="7"
+                        Grid.Column="0"
+                        x:Name="SeeWorkersInfo"
+                        Text="Peržiūrėti darbuotojus"
+                        Clicked="OnSWIClicked"
+                        SemanticProperties.Hint="Paspaudus mygtuka, atsiras meniu, leidziantis pasirinkti darbuotoją, peržiūrėti jo info"
+                />
+                <Button Grid.Row="8"
+                        Grid.Column="0"
+                        x:Name="SeeInhabitantInfo"
+                        Text="Peržiūrėti gyventojus"
+                        Clicked="OnSIIClicked"
+                        SemanticProperties.Hint="Paspaudus mygtuka, atsiras meniu, leidziantis pasirinkti gyventoją, peržiūrėti jo info"
+                />
+                <Button Grid.Row="9"
+                        Grid.Column="0"
+                        x:Name="AssignRoom"
+                        Clicked="OnARClicked"
+                        Text="Priskirti kambarį"
+                />
+                    <Button Grid.Row="10"
+                        Grid.Column="0"
+                    x:Name="Back"
+                    Text="Grįžti"
+                    SemanticProperties.Hint="Paspaudus mygtuka sugrįs administravimo panele"
+                        Clicked="OnBackClicked"
+                    IsVisible="false"
+                />
+
+            </Grid>
+
+            <!--STUDENTU PRIDEJIMO INTERFEISAS-->
+
+            <StackLayout>
+                
+                <Grid x:Name="interfaceAddWorker" IsVisible="false" HorizontalOptions="Center"
+                      RowDefinitions="*, *, *, *, *, *, *"
+                      ColumnDefinitions="*"
+                      Grid.Column="1">
+                      
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                        Text="Įvesti darbuotojo vardą:"
+                        FontSize="Medium"
+                        TextDecorations="Underline"
+                        Margin="20"
+                        HorizontalOptions="Center"
+                        />
+                    <Entry Grid.Row="1"
+                           Grid.Column="1"
+                        x:Name="fNameEntry"
+                        Placeholder="Vardas"
+                        WidthRequest="300"
+                        Margin="20"
+                        />
+                    <Label Grid.Row="2"
+                           Grid.Column="1"
+                        Text="Įvesti darbuotojo pavardę:"
+                        FontSize="Medium"
+                        TextDecorations="Underline"
+                        Margin="20"
+                        HorizontalOptions="Center"
+                        />
+                    <Entry Grid.Row="3"
+                           Grid.Column="1"
+                        x:Name="lNameEntry"
+                        Placeholder="Pavardė"
+                        WidthRequest="300"
+                           Margin="20"
+                       />
+                        <Label Grid.Row="4"
+                           Grid.Column="1"
+                        Text="Pasirinkti studento grupę:"
+                        FontSize="Medium"
+                        TextDecorations="Underline"
+                        Margin="20"
+                        HorizontalOptions="Center"
+                           />
+                        <Picker x:Name="AddWorkerPicker"
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Margin="20"
+                                
+                        />
+
+                        <Button Grid.Row="6"
+                                Grid.Column="1"
+                        x:Name="AddWorkerBtn"
+                        Text="Tęsti"
+                        Clicked="OnAddWorkerBtnClicked"
+                        HorizontalOptions="Center"
+                        WidthRequest="300"
+                                Margin="20"
+                        />
+                    </Grid>
+
+                </StackLayout>
+            
+            <!--STUDENTU SALINIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid x:Name="interfaceRemoveWorker" IsVisible="false" HorizontalOptions="Center"
+                        RowDefinitions="*, *, *, *, *"
+                        ColumnDefinitions="*"
+                        Grid.Column="1">
+
+                        <Label Grid.Row="0"
+                               Grid.Column="1"
+                            Text="Pasirinkti bendrabutį:"
+                            FontSize="Medium"
+                            TextDecorations="Underline"
+                            HorizontalOptions="Center"
+                            Margin="20"
+                            />
+                        <Picker Grid.Row="1"
+                               Grid.Column="1"
+                            x:Name="RemoveWorkerPicker1"
+                            SelectedIndexChanged="OnPicker1IndexChange"
+                            WidthRequest="300"
+                            Margin="20"
+                            />
+                        <Label Grid.Row="2"
+                               Grid.Column="1"
+                            Text="Pasirinkti darbuotoją:"
+                            FontSize="Medium"
+                            TextDecorations="Underline"
+                            HorizontalOptions="Center"
+                            Margin="20"
+                            />
+                        <Picker Grid.Row="3"
+                               Grid.Column="1"
+                               x:Name="RemoveWorkerPicker2"
+                               WidthRequest="300"
+                               Margin="20"
+                            />
+                        <Button Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="RemoveWorkerBtn"
+                                Text="Tęsti"
+                                Clicked="OnRemoveWorkerClicked"
+                                HorizontalOptions="Center"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+
+                    </Grid>
+
+                </StackLayout>
+
+                <!--DESTYTOJO PRIDEJIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid x:Name="interfaceAddInhabitant" IsVisible="false" HorizontalOptions="Center"
+                          RowDefinitions="*, *, *, *, *, *, *"
+                          ColumnDefinitions="*"
+                          Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Įvesti gyventojo vardą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="fNameLEntry"
+                                Placeholder="Vardas"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Įvesti gyventojo pavardę:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="lNameFEntry"
+                                Placeholder="Pavardė"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="4"
+                                Grid.Column="1"
+                                Text="Įvesti gyventojo asmens kodą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="pIDEntry"
+                                Placeholder="Asmens kodas"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="6"
+                                Grid.Column="1"
+                                Text="Pasirinkti gyventojo gimimo datą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        
+                        
+                        --> INSERT DATE HERE
+                        <Button Grid.Row="7"
+                                Grid.Column="1"
+                                x:Name="AddInhabitantBtn"
+                                Text="Tęsti"
+                                Clicked="OnAddInhabitantBtnClicked"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                    </Grid>
+
+                </StackLayout>
+
+                <!--DESTYTOJO SALINIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceRemoveInhabitant" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *, *, *, *, *, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkti bendrabutį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="RemoveInhabitantPicker"
+                                SelectedIndexChanged="OnRIPChange"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Pasirinkti aukštą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="RemoveInhabitantPicker1"
+                                SelectedIndexChanged="OnRIPChange1"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="4"
+                                Grid.Column="1"
+                                Text="Pasirinkti kambarį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="RemoveInhabitantPicker2"
+                                SelectedIndexChanged="OnRIPChange2"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="6"
+                                Grid.Column="1"
+                                Text="Pasirinkti gyventoją:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="7"
+                                Grid.Column="1"
+                                x:Name="RemoveInhabitantPicker3"
+                                SelectedIndexChanged="OnRIPChange3"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Button Grid.Row="8"
+                                Grid.Column="1"
+                                x:Name="RemoveInhabitantBtn"
+                                Text="Tęsti"
+                                WidthRequest="300"
+                                Margin="20"
+                                Clicked="OnRemoveInhabitantBtnClicked"
+                        />
+                    </Grid>
+
+                </StackLayout>
+
+                <!--PAZYMIO REDAGAVIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceCreateBuilding" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *, *, *, *, *, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkti bendrabučio miestą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="ChooseCityPicker"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Įvesti bendrabučio adresą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="adressEntry"
+                                Placeholder="Adresas"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="4"
+                                Grid.Column="1"
+                                Text="Įvesti bendrabučio pašto kodą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="zipEntry"
+                                Placeholder="Pašto kodas"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="6"
+                                Grid.Column="1"
+                                Text="Bendrabučio aukštų skaičius:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="7"
+                                Grid.Column="1"
+                                x:Name="floorsEntry"
+                                Placeholder="Aukštų skaičius"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Button Grid.Row="8"
+                                Grid.Column="1"
+                                x:Name="CreateBuildingBtn"
+                                Text="Tęsti"
+                                WidthRequest="300"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                                Clicked="OnCreateBuildingBtnClicked"
+                            
+                            />
+                    </Grid>
+
+                </StackLayout>
+
+                <!--GRUPES PRIDEJIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceRemoveBuilding" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkti bendrabutį"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="RemoveBuildingPicker"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Button Grid.Row="2"
+                                Grid.Column="1"
+                                x:Name="RemoveBuildingBtn"
+                                Text="Tęsti"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                                WidthRequest="300"   
+                                Clicked="OnRemoveBuildingBtnClicked"
+                        />
+
+                    </Grid>
+
+                </StackLayout>
+
+                <!--GRUPES SALINIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceCreateRoom" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *, *, *, *, *, *, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkti bendrabutį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="createRoomPicker"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Pasirinkti aukštą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="createRoomPicker1"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="4"
+                                Grid.Column="1"
+                                Text="Įvesti kambario pavadinimą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Entry  Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="floorsEntry"
+                                Placeholder="Aukštų skaičius"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="6"
+                                Grid.Column="1"
+                                Text="Pasirinkti galimą gyventojų skaičių:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="7"
+                                Grid.Column="1"
+                                x:Name="createRoomPicker2"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <RadioButton    Grid.Row="8"
+                                        Grid.Column="1"
+                                        Content="Vyrų kamb."
+                                        Value="0"
+                        />
+                        <RadioButton    Grid.Row="8"
+                                        Grid.Column="1"
+                                        Content="Moterų kamb."
+                                        Value="1"
+                        />
+                        <Button Grid.Row="9"
+                                Grid.Column="1"
+                                x:Name="createRoomBtn"
+                                Text="Tęsti"
+                                WidthRequest="300"
+                                Margin="20"
+                                Clicked="OnCreateRoomBtnClicked"
+                        />
+
+                    </Grid>
+
+                </StackLayout>
+
+                <!--PASKAITOS SUKURIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceSeeWorkersInfo" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkite bendrabutį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="seeWorkersPicker"
+                                SelectedIndexChanged="OnSeeWorkersPickerChanged"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Pasirinkite darbuotoją:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="seeWorkersPicker1"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Button Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="seeWorkersBtn"
+                                Text="Tęsti"
+                                WidthRequest="300"
+                                Margin="20"
+                                Clicked="OnSeeWorkersInfoBtnClicked"
+                        />
+
+                    </Grid>
+
+                </StackLayout>
+
+
+                <!--PASKAITOS SALINIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceSeeInhabitantInfo" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *, *, *, *, *, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkti bendrabutį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="SeeInhabitantInfoPicker"
+                                SelectedIndexChanged="OnSIIChange"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Pasirinkti aukštą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="SeeInhabitantInfoPicker1"
+                                SelectedIndexChanged="OnSIIChange1"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="4"
+                                Grid.Column="1"
+                                Text="Pasirinkti kambarį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="SeeInhabitantInfoPicker2"
+                                SelectedIndexChanged="OnSIIChange2"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="6"
+                                Grid.Column="1"
+                                Text="Pasirinkti gyventoją:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="7"
+                                Grid.Column="1"
+                                x:Name="SeeInhabitantInfoPicker3"
+                                SelectedIndexChanged="OnSIIChange3"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Button Grid.Row="8"
+                                Grid.Column="1"
+                                x:Name="seeInhabitantInfoBtn"
+                                Text="Tęsti"
+                                WidthRequest="300"
+                                Margin="20"
+                                Clicked="OnSeeInhabitantInfoBtnClicked"
+                        />
+
+                    </Grid>
+
+                </StackLayout>
+
+                <!--GRUPES PRISKYRIMO INTERFEISAS-->
+
+                <StackLayout>
+
+                    <Grid   x:Name="interfaceAssignRoom" IsVisible="false" HorizontalOptions="Center"
+                            RowDefinitions="*, *, *, *, *, *, *, *, *"
+                            ColumnDefinitions="*"
+                            Grid.Column="1">
+
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Pasirinkti bendrabutį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="AssignRoomPicker1"
+                                WidthRequest="300"
+                                Margin="20"
+                        />
+                        <Label  Grid.Row="2"
+                                Grid.Column="1"
+                                Text="Pasirinkti aukštą:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="AssignRoomPicker2"
+                                WidthRequest="300"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Label  Grid.Row="4"
+                                Grid.Column="1"
+                                Text="Pasirinkti kambarį:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="AssignRoomPicker3"
+                                WidthRequest="300"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Label  Grid.Row="6"
+                                Grid.Column="1"
+                                Text="Pasirinkti gyventoją:"
+                                FontSize="Medium"
+                                TextDecorations="Underline"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Picker Grid.Row="7"
+                                Grid.Column="1"
+                                x:Name="AssignRoomPicker4"
+                                WidthRequest="300"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                        />
+                        <Button Grid.Row="8"
+                                Grid.Column="1"
+                                x:Name="AssignRoomBtn"
+                                Text="Tęsti"
+                                WidthRequest="300"
+                                Margin="20"
+                                HorizontalOptions="Center"
+                                Clicked="OnAssignRoomBtnClicked"
+                        />
+                    </Grid>
+
+                </StackLayout>
+                
+                
+
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        
+    </ScrollView>
+</ContentPage>

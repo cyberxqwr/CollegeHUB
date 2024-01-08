@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CollegeHUB.MainPage">
+
+    <ScrollView>
+        <StackLayout>
+            <Label
+            Text="CollegeHUB administravimo informacinė sistema"
+                FontSize="Header"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Padding="100"
+                />
+
+            <Label
+                Text="Prisijungimo vardas:"
+                    FontSize="Medium"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Margin="20"
+            />
+
+            <Entry
+                
+                x:Name="usernameEntry"
+                Placeholder="Iveskite slapyvardi"
+                WidthRequest="500"
+                />
+
+            <Label
+                Text="Slaptažodis:"
+                    FontSize="Medium"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Margin="20"
+/>
+
+            <Entry
+    
+                x:Name="passwordEntry"
+                Placeholder="Iveskite slaptazodi"
+                WidthRequest="500"
+                IsPassword="True"
+    />
+
+            <Button
+                x:Name="Login"
+                Text="Prisijungti"
+                SemanticProperties.Hint="Prisijungimo mygtukas"
+                Clicked="OnLoginClicked"
+                Margin="20"
+                WidthRequest="500"
+                />
+
+            <Grid x:Name="ErrorLabel" IsVisible="False">
+            <Label
+                Text="Prisijungimas nepavyko. Patikrinkite savo duomenis."
+                TextColor="Red"
+                FontSize="Medium"
+                HorizontalTextAlignment="Center"
+                />
+            </Grid>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
